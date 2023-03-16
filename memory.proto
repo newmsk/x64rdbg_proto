@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package memory;
+
+import "proto/base.proto";
+
+
+message MemoryWriteParam {
+    base.Address address = 1;
+    base.BinaryData data = 2;
+}
+
+message AddressAndSizePair {
+    base.Address address = 1;
+    uint64 size = 2;
+}
+
+
+service Memory {
+    rpc Read(AddressAndSizePair) returns (base.BinaryData){}
+    rpc Write(MemoryWriteParam) returns (base.UnsignedNumberValue) {}
+    rpc IsValidPtr(base.Address) returns (base.Boolean) {}
+    rpc RemoteAlloc(AddressAndSizePair) returns (base.Address) {}
+    rpc RemoteFree(base.Address)  returns (base.Boolean) {}
+    rpc GetProtect(base.Address) returns (base.UnsignedNumberValue) {}
+    rpc GetBase(base.Address) returns (base.Address) {}
+    rpc GetSize(base.Address)  returns (base.UnsignedNumberValue) {}
+}

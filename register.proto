@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+
+package reg;
+
+import "proto/base.proto";
+
+
+enum RegisterEnum {
+    option allow_alias = true;
+    // win32 registers
+    DR0 = 0;
+    DR1 = 1;
+    DR2 = 2;
+    DR3 = 3;
+    DR6 = 4;
+    DR7 = 5;
+    EAX = 6;
+    AX = 7;
+    AH = 8;
+    AL = 9;
+    EBX = 10;
+    BX = 11;
+    BH = 12;
+    BL = 13;
+    ECX = 14;
+    CX = 15;
+    CH = 16;
+    CL = 17;
+    EDX = 18;
+    DX = 19;
+    DH = 20;
+    DL = 21;
+    EDI = 22;
+    DI = 23;
+    ESI = 24;
+    SI = 25;
+    EBP = 26;
+    BP = 27;
+    ESP = 28;
+    SP = 29;
+    EIP = 30;
+    EFLAGS = 31;
+
+    // x64 additional registers
+    RAX = 31;
+    RBX = 32;
+    RCX = 33;
+    RDX = 34;
+    RSI = 35;
+    SIL = 36;
+    RDI = 37;
+    DIL = 38;
+    RBP = 39;
+    BPL = 40;
+    RSP = 41;
+    SPL = 42;
+    RIP = 43;
+    R8 = 44;
+    R8D = 45;
+    R8W = 46;
+    R8B = 47;
+    R9 = 48;
+    R9D = 49;
+    R9W = 50;
+    R9B = 51;
+    R10 = 52;
+    R10D = 53;
+    R10W = 54;
+    R10B = 55;
+    R11 = 56;
+    R11D = 57;
+    R11W = 58;
+    R11B = 59;
+    R12 = 60;
+    R12D = 61;
+    R12W = 62;
+    R12B = 63;
+    R13 = 64;
+    R13D = 65;
+    R13W = 66;
+    R13B = 67;
+    R14 = 68;
+    R14D = 69;
+    R14W = 70;
+    R14B = 71;
+    R15 = 72;
+    R15D = 73;
+    R15W = 74;
+    R15B = 75;
+    RFLAGS = 85;
+}
+
+message RegisterId {
+    RegisterEnum id = 1;
+}
+
+message RegisterValue {
+    uint64 value = 1;
+}
+
+message RegisterIdValuePair {
+    RegisterId id = 1;
+    RegisterValue value = 2;
+}
+
+
+service Register {
+    rpc Get(RegisterId) returns (RegisterValue){}
+    rpc Set(RegisterIdValuePair) returns (base.Boolean) {}
+    rpc Size(base.Empty) returns (base.UnsignedNumberValue) {}
+}

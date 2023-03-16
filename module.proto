@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package module;
+
+import "proto/base.proto";
+
+message ModuleInfo{
+    base.Address base = 1;
+    base.UnsignedNumberValue size = 2;
+    base.Address entry = 3;
+    base.UnsignedNumberValue section_count = 4;
+    base.String name = 5;
+    base.String path = 6;
+}
+
+message ModulesList{
+    repeated ModuleInfo modules = 1;
+}
+
+service Module {
+    rpc GetMainModuleBase(base.Empty) returns(base.Address){}
+    rpc GetMainModuleSize(base.Empty) returns(base.UnsignedNumberValue){}
+    rpc GetMainModuleEntry(base.Empty) returns(base.Address){}
+    rpc GetList(base.Empty) returns(ModulesList){}
+
+}

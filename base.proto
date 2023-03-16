@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package base;
+
+message Empty { }
+
+message Address {
+    uint64 address = 1;
+}
+
+message SignedNumberValue {
+    int64 value = 1;
+}
+
+message UnsignedNumberValue {
+    uint64 value = 1;
+}
+
+message BinaryData {
+    bytes data = 1;
+}
+
+message Boolean {
+    bool boolean = 1;
+}
+
+message String {
+    string value = 1;
+}
+
+message FixedSizeData {
+    uint64 size = 1;
+    bytes data = 2;
+}

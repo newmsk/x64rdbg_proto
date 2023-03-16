@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package debug;
+
+import "proto/base.proto";
+
+enum HardwareType {
+    HardwareAccess = 0;
+    HardwareWrite = 1;
+    HardwareExecute = 2;
+}
+
+message HardwareBreakpoint {
+    base.Address address = 1;
+    HardwareType type = 2;
+}
+
+service Debug {
+    rpc Hello(base.Empty) returns (base.Empty){}
+    rpc Wait(base.Empty) returns (base.Empty) {}
+    rpc Run(base.Empty) returns (base.Empty) {}
+    rpc Pause(base.Empty) returns (base.Empty) {}
+    rpc Stop(base.Empty)  returns (base.Empty) {}
+    rpc StepIn(base.Empty) returns (base.Empty) {}
+    rpc StepOver(base.Empty) returns (base.Empty) {}
+    rpc StepOut(base.Empty)  returns (base.Empty) {}
+    rpc SetBreakpoint(base.Address) returns (base.Boolean) {}
+    rpc DeleteBreakpoint(base.Address) returns (base.Boolean) {}
+    rpc DisableBreakpoint(base.Address) returns (base.Boolean) {}
+    rpc SetHardwareBreakpoint(HardwareBreakpoint) returns (base.Boolean) {}
+    rpc DeleteHardwareBreakpoint(base.Address) returns (base.Boolean) {}
+}

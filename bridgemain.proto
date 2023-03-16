@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package bridgemain;
+
+import "proto/base.proto";
+
+message DbgExprValue{
+    base.Boolean success = 1;
+    base.UnsignedNumberValue value = 2;
+}
+
+enum BPType{
+    bp_none = 0;
+    bp_normal = 1;
+    bp_hardware = 2;
+    bp_memory = 4;
+    bp_dll = 8;
+    bp_exception = 16;
+}
+
+message BP{
+    BPType type = 1;
+    base.Address addr = 2;
+    base.Boolean enabled = 3;
+    base.Boolean single_shoot = 4;
+    base.Boolean active = 5;
+    base.String name = 6;
+    base.String mod = 7;
+    base.UnsignedNumberValue typeEx = 8;
+    base.UnsignedNumberValue hw_size = 9;
+    base.UnsignedNumberValue hit_count = 10;
+    base.Boolean fast_resume = 11;
+    base.Boolean silent = 12;
+    base.String break_condition = 13;
+    base.String log_text = 14;
+    base.String log_condition = 15;
+    base.String command_text = 16;
+    base.String command_condition = 17;
+}
+
+message BPList{
+    repeated BP bps = 1;
+}
+
+message X87FPU{
+    base.UnsignedNumberValue   control_word = 1;
+    base.UnsignedNumberValue   status_word = 2;
+    base.UnsignedNumberValue   tag_word = 3;
+    base.UnsignedNumberValue   error_offset = 4;
+    base.UnsignedNumberValue   error_selector = 5;
+    base.UnsignedNumberValue   data_offset = 6;
+    base.UnsignedNumberValue   data_selector = 7;
+    base.UnsignedNumberValue   cr0npx_state = 8;
+}
+
+message XMMRegister{
+    base.UnsignedNumberValue low = 1;
+    base.SignedNumberValue high = 2;
+}
+
+message FixedSizeXMMRegister{
+    base.UnsignedNumberValue size = 1;
+    repeated XMMRegister xmm_registers = 2;
+}
+
+message YMMRegister{
+    XMMRegister low = 1;
+    XMMRegister high = 2;
+}
+
+message FixedSizeYMMRegister{
+    base.UnsignedNumberValue size = 1;
+    repeated YMMRegister ymm_registers = 2;
+}
+
+
+message RegContext{
+    base.UnsignedNumberValue cax = 1;
+    base.UnsignedNumberValue ccx = 2;
+    base.UnsignedNumberValue cdx = 3;
+    base.UnsignedNumberValue cbx = 4;
+    base.UnsignedNumberValue csp = 5;
+    base.UnsignedNumberValue cbp = 6;
+    base.UnsignedNumberValue csi = 7;
+    base.UnsignedNumberValue cdi = 8;
+    base.UnsignedNumberValue r8 = 9;
+    base.UnsignedNumberValue r9 = 10;
+    base.UnsignedNumberValue r10 = 11;
+    base.UnsignedNumberValue r11 = 12;
+    base.UnsignedNumberValue r12 = 13;
+    base.UnsignedNumberValue r13 = 14;
+    base.UnsignedNumberValue r14 = 15;
+    base.UnsignedNumberValue r15 = 16;
+    base.UnsignedNumberValue cip = 17;
+    base.UnsignedNumberValue eflags = 18;
+    base.UnsignedNumberValue gs = 19;
+    base.UnsignedNumberValue fs = 20;
+    base.UnsignedNumberValue es = 21;
+    base.UnsignedNumberValue ds = 22;
+    base.UnsignedNumberValue cs = 23;
+    base.UnsignedNumberValue ss = 24;
+    base.UnsignedNumberValue dr0 = 25;
+    base.UnsignedNumberValue dr1 = 26;
+    base.UnsignedNumberValue dr2 = 27;
+    base.UnsignedNumberValue dr3 = 28;
+    base.UnsignedNumberValue dr6 = 29;
+    base.UnsignedNumberValue dr7 = 30;
+    base.FixedSizeData register_area = 31;
+    X87FPU x87fpu = 32;
+    base.UnsignedNumberValue mx_csr = 33;
+    FixedSizeXMMRegister xmm_registers = 34;
+    FixedSizeYMMRegister ymm_registers = 35;
+}
+
+message Flags{
+    base.Boolean c = 1;
+    base.Boolean p = 2;
+    base.Boolean a = 3;
+    base.Boolean z = 4;
+    base.Boolean s = 5;
+    base.Boolean t = 6;
+    base.Boolean i = 7;
+    base.Boolean d = 8;
+    base.Boolean o = 9;
+}
+
+message X87FPURegister{
+    base.FixedSizeData data = 1;
+    base.SignedNumberValue st_value = 2;
+    base.SignedNumberValue tag = 3;
+}
+
+message FixedSizeX87FPURegister{
+    base.UnsignedNumberValue size = 1;
+    repeated X87FPURegister x87fpu_reg = 2;
+}
+
+message MXCSRFields{
+    base.Boolean fz = 1;
+    base.Boolean pm = 2;
+    base.Boolean um = 3;
+    base.Boolean om = 4;
+    base.Boolean zm = 5;
+    base.Boolean im = 6;
+    base.Boolean dm = 7;
+    base.Boolean daz = 8;
+    base.Boolean pe = 9;
+    base.Boolean ue = 10;
+    base.Boolean oe = 11;
+    base.Boolean ze = 12;
+    base.Boolean de = 13;
+    base.Boolean ie = 14;
+    base.UnsignedNumberValue rc = 15;
+}
+
+message X87StatusWordFields{
+    base.Boolean b = 1;
+    base.Boolean c3 = 2;
+    base.Boolean c2 = 3;
+    base.Boolean c1 = 4;
+    base.Boolean c0 = 5;
+    base.Boolean es = 6;
+    base.Boolean sf = 7;
+    base.Boolean p = 8;
+    base.Boolean u = 9;
+    base.Boolean o = 10;
+    base.Boolean z = 11;
+    base.Boolean d = 12;
+    base.Boolean i = 13;
+    base.UnsignedNumberValue top = 14;
+}
+
+message X87ControlWordFields{
+    base.Boolean ic = 1;
+    base.Boolean iem =2;
+    base.Boolean pm = 3;
+    base.Boolean um = 4;
+    base.Boolean om = 5;
+    base.Boolean zm = 6;
+    base.Boolean dm = 7;
+    base.Boolean im = 8;
+    base.UnsignedNumberValue rc = 9;
+    base.UnsignedNumberValue pc = 10;
+}
+
+message LastError{
+    base.UnsignedNumberValue code = 1;
+    base.String name = 2;
+}
+
+message LastStatus{
+    base.UnsignedNumberValue code = 1;
+    base.String name = 2;
+}
+
+message FixedSizedMMX{
+    base.UnsignedNumberValue size = 1;
+    repeated base.UnsignedNumberValue mmx = 2;
+}
+
+message RegDump{
+    RegContext reg_context = 1;
+    Flags flags = 2;
+    FixedSizeX87FPURegister x87fpu_reg = 3;
+    FixedSizedMMX mmx = 4;
+    MXCSRFields mx_csr_field = 5;
+    X87StatusWordFields x87_status_word_field = 6;
+    X87ControlWordFields x87_control_word_field = 7;
+    LastError last_error = 8;
+    LastStatus last_status = 9;
+}
+
+service BridgeMain {
+    rpc DbgCmdExec(base.String) returns (base.Boolean){}
+    rpc DbgCmdExecDirect(base.String) returns (base.Boolean){}
+    rpc DbgEval(base.String) returns(DbgExprValue){}
+    rpc GuiCloseApplication(base.Empty) returns(base.Empty){}
+    rpc DbgGetBpList(base.Empty) returns(BPList){}
+    rpc DbgGetRegDumpEx(base.Empty) returns(RegDump){}
+}
