@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package stack;
+
+import "proto/base.proto";
+
+
+service Stack {
+    rpc Pop(base.Empty) returns(base.UnsignedNumberValue){}
+    rpc Push(base.UnsignedNumberValue) returns(base.UnsignedNumberValue){}
+    rpc Peek(base.UnsignedNumberValue) returns(base.UnsignedNumberValue){}
+}
