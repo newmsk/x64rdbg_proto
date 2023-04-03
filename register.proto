@@ -40,7 +40,7 @@ enum RegisterEnum {
     ESP = 28;
     SP = 29;
     EIP = 30;
-    EFLAGS = 31;
+    EFLAGS_x86 = 40;
 
     // x64 additional registers
     RAX = 31;
@@ -88,7 +88,7 @@ enum RegisterEnum {
     R15D = 73;
     R15W = 74;
     R15B = 75;
-    RFLAGS = 85;
+    EFLAGS_x64 = 85;
 }
 
 message RegisterId {
