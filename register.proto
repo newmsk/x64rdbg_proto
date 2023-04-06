@@ -89,6 +89,18 @@ enum RegisterEnum {
     R15W = 74;
     R15B = 75;
     EFLAGS_x64 = 85;
+
+    // Extra enum mapper to resolve x86,x64 different cxx regs enum
+    CIP = 10001;
+    CSP = 10002;
+    CAX = 10003;
+    CBX = 10004;
+    CCX = 10005;
+    CDX = 10006;
+    CDI = 10007;
+    CSI = 10008;
+    CBP = 10009;
+    CFLAGS = 10010;
 }
 
 message RegisterId {
